@@ -17,19 +17,27 @@ class SbbApplicationTests {
 
 	@Test
 	void testJpa() {
+
+		// findAll
 		List<Question> all = this.questionRepository.findAll();
 		assertEquals(2, all.size());
 
 		Question q1 = all.get(0);
 		assertEquals("sbb가 무엇인가요?", q1.getSubject());
 
+		// findById
 		Optional<Question> oq = this.questionRepository.findById(1);
 		if(oq.isPresent()) {
 			Question q2 = oq.get();
 			assertEquals("sbb가 무엇인가요?", q2.getSubject());
 		}
 
+		// findBySubject
 		Question q3 = this.questionRepository.findBySubject("sbb가 무엇인가요?");
 		assertEquals(1, q3.getId());
+
+		// findBySubjectAndContent
+		Question q4 = this.questionRepository.findBySubjectAndContent("sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");
+		assertEquals(1, q4.getId());
 	}
 }
