@@ -46,10 +46,19 @@ class SbbApplicationTests {
 		Question q5 = qList.get(0);
 		assertEquals("sbb가 무엇인가요?", q5.getSubject());
 
+		// 질문 수정
 		Optional<Question> oq2 = this.questionRepository.findById(1);
 		assertTrue(oq2.isPresent());
 		Question q6 = oq2.get();
 		q6.setSubject("수정된 제목");
 		this.questionRepository.save(q6);
+
+		// 질문 삭제
+		assertEquals(2, this.questionRepository.count());
+		Optional<Question> oq3 = this.questionRepository.findById(1);
+		assertTrue(oq3.isPresent());
+		Question q7 = oq3.get();
+		this.questionRepository.delete(q7);
+		assertEquals(1, this.questionRepository.count());
 	}
 }
