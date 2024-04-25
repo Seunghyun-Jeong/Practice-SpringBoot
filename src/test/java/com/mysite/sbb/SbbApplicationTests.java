@@ -75,5 +75,11 @@ class SbbApplicationTests {
 		a.setQuestion(q8);
 		a.setCreateDate(LocalDateTime.now());
 		this.answerRepository.save(a);
+
+		// 답변 조회
+		Optional<Answer> oa = this.answerRepository.findById(1);
+		assertTrue(oa.isPresent());
+		Answer a2 = oa.get();
+		assertEquals(2, a2.getQuestion().getId());
 	}
 }
