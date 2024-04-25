@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,9 @@ class SbbApplicationTests {
 
 	@Autowired
 	private QuestionRepository questionRepository;
+
+	@Autowired
+	private AnswerRepository answerRepository;
 
 	@Test
 	void testJpa() {
@@ -60,5 +64,16 @@ class SbbApplicationTests {
 		Question q7 = oq3.get();
 		this.questionRepository.delete(q7);
 		assertEquals(1, this.questionRepository.count());
+
+		// 답변 저장
+		Optional<Question> oq4 = this.questionRepository.findById(2);
+		assertTrue(oq4.isPresent());
+		Question q8 = oq4.get();
+
+		Answer a = new Answer();
+		a.setContent("네 자동으로 생성됩니다.");
+		a.setQuestion(q8);
+		a.setCreateDate(LocalDateTime.now());
+		this.answerRepository.save(a);
 	}
 }
