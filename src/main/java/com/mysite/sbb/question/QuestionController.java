@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-public class QuesetionController {
+public class QuestionController {
 
     private final QuestionRepository questionRepository;
 
